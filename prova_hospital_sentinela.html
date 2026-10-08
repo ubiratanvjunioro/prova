@@ -1,0 +1,2851 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prova – Sistema Hospitalar Sentinela | Escola do Futuro</title>
+  <meta name="description"
+    content="Avaliação do Projeto Final Sentinela – Sistema Hospitalar. 55 questões de múltipla escolha com gabarito e corretor automático.">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #0d6e6e;
+      --secondary: #00b09b;
+      --dark: #1a1a2e;
+      --gray: #555;
+      --border: #dde3ec;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #eef2f7;
+      color: #1a1a2e;
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    .control-bar {
+      background: linear-gradient(135deg, #0d6e6e, #00b09b);
+      padding: 14px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .control-bar h1 {
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .control-bar .btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-ctrl {
+      padding: 9px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-prova {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-gabarito {
+      background: #f39c12;
+      color: white;
+    }
+
+    .btn-bolinha {
+      background: #8e44ad;
+      color: white;
+    }
+
+    .btn-corretor {
+      background: #2980b9;
+      color: white;
+    }
+
+    .btn-pdf {
+      background: #c0392b;
+      color: white;
+    }
+
+    .btn-ctrl:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .10);
+      overflow: hidden;
+    }
+
+    .header {
+      background: white;
+      padding: 28px 36px 22px;
+      color: #1a1a2e;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #dde3ec;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .escola-info h2 {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: .5px;
+      color: #0b2c5c;
+      display: none;
+      /* text is in the logo now */
+    }
+
+    .escola-info p {
+      font-size: 12px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .prova-titulo {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .prova-titulo h1 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      margin-bottom: 4px;
+      color: #1a5276;
+    }
+
+    .prova-titulo p {
+      font-size: 12.5px;
+      color: #555;
+    }
+
+    .ficha {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid #dde3ec;
+    }
+
+    .ficha-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ficha-item label {
+      font-size: 10px;
+      color: #777;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-weight: 600;
+    }
+
+    .ficha-item .linha {
+      border-bottom: 1px solid #ccc;
+      height: 22px;
+      width: 100%;
+    }
+
+    .instrucoes {
+      background: #fffbea;
+      border-left: 4px solid #d4ac0d;
+      margin: 0 36px;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 22px;
+    }
+
+    .instrucoes h3 {
+      color: #8a6d00;
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .instrucoes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .instrucoes ul li {
+      font-size: 12px;
+      color: #5a4a00;
+      padding: 2px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .instrucoes ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #d4ac0d;
+    }
+
+    .prova-body {
+      padding: 28px 36px 36px;
+    }
+
+    .secao {
+      margin-bottom: 36px;
+    }
+
+    .secao-titulo {
+      background: linear-gradient(90deg, #0d6e6e, #00b09b);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .secao-titulo .badge {
+      background: rgba(255, 255, 255, .25);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .questao {
+      margin-bottom: 22px;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fafbff;
+    }
+
+    .questao-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-bottom: 7px;
+    }
+
+    .questao-enunciado {
+      font-size: 13px;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    .questao-enunciado strong {
+      color: var(--primary);
+    }
+
+    .opcoes {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .opcao {
+      position: relative;
+      padding: 8px 12px 8px 38px;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      background: white;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .opcao-letra {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .codigo-bloco {
+      background: #1a1a2e;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 10px 0 14px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      color: #a8d5d0;
+      overflow-x: auto;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .kw {
+      color: #cc99cd;
+    }
+
+    .fn {
+      color: #6fb3d2;
+    }
+
+    .str {
+      color: #7ec699;
+    }
+
+    .cm {
+      color: #71737a;
+    }
+
+    .num {
+      color: #f99157;
+    }
+
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, #0d6e6e, #00b09b);
+      margin: 28px 0;
+      border-radius: 2px;
+    }
+
+    .rodape {
+      border-top: 1px solid var(--border);
+      padding: 16px 36px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray);
+      background: #f5f7fa;
+    }
+
+    /* GABARITO */
+    #gabarito {
+      display: none;
+    }
+
+    .gabarito-page {
+      max-width: 860px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .10);
+      overflow: hidden;
+    }
+
+    .gabarito-header {
+      background: linear-gradient(135deg, #1a5276, #2980b9);
+      padding: 24px 36px;
+      color: white;
+      text-align: center;
+    }
+
+    .gabarito-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .gabarito-header p {
+      font-size: 13px;
+      opacity: .85;
+    }
+
+    .gabarito-body {
+      padding: 30px 36px;
+    }
+
+    .gab-secao {
+      margin-bottom: 30px;
+    }
+
+    .gab-secao-titulo {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      padding: 8px 0;
+      border-bottom: 2px solid var(--primary);
+      margin-bottom: 14px;
+    }
+
+    .gab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 10px;
+    }
+
+    .gab-item {
+      background: #f0faf9;
+      border: 1px solid #a8d5d0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+
+    .gab-item .q-num {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 11px;
+    }
+
+    .gab-item .resposta {
+      font-weight: 700;
+      color: #1a9641;
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .gab-item .justificativa {
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .gab-vf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 8px;
+    }
+
+    .gab-vf-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+
+    .gab-vf-item.v-item {
+      background: #edfaf1;
+      border: 1px solid #a9dfbf;
+    }
+
+    .gab-vf-item.f-item {
+      background: #fdecea;
+      border: 1px solid #f5b7b1;
+    }
+
+    .gab-vf-badge {
+      font-weight: 700;
+      font-size: 14px;
+      min-width: 22px;
+    }
+
+    .v-item .gab-vf-badge {
+      color: #1a9641;
+    }
+
+    .f-item .gab-vf-badge {
+      color: #c0392b;
+    }
+
+    .pontuacao-bar {
+      background: linear-gradient(90deg, #eef2f7, #dde8f5);
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pont-item {
+      text-align: center;
+    }
+
+    .pont-item .val {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .pont-item .desc {
+      font-size: 11px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    /* BOLINHA */
+    #gabarito-bolinha {
+      display: none;
+    }
+
+    .bolinha-page {
+      max-width: 860px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .10);
+      overflow: hidden;
+    }
+
+    .bolinha-header {
+      background: linear-gradient(135deg, #6c3483, #8e44ad);
+      padding: 24px 36px;
+      color: white;
+    }
+
+    .bolinha-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .bolinha-header p {
+      font-size: 12.5px;
+      opacity: .85;
+    }
+
+    .bolinha-ficha {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px 20px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, .2);
+    }
+
+    .bolinha-ficha-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .bolinha-ficha-item label {
+      font-size: 10px;
+      opacity: .7;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .bolinha-ficha-item .linha {
+      border-bottom: 1px solid rgba(255, 255, 255, .5);
+      height: 22px;
+      width: 100%;
+    }
+
+    .bolinha-body {
+      padding: 24px 36px 30px;
+    }
+
+    .bolinha-instrucao {
+      background: #f8f0ff;
+      border-left: 4px solid #8e44ad;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: #4a235a;
+    }
+
+    .bolinha-instrucao strong {
+      color: #6c3483;
+    }
+
+    .bolinha-secao-titulo {
+      font-size: 12px;
+      font-weight: 700;
+      color: #6c3483;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      padding: 6px 0;
+      border-bottom: 2px solid #8e44ad;
+      margin-bottom: 12px;
+      margin-top: 20px;
+    }
+
+    .bolinha-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .bolinha-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: #fafafa;
+      border: 1px solid #ece9f5;
+    }
+
+    .bolinha-qnum {
+      font-size: 11px;
+      font-weight: 700;
+      color: #333;
+      min-width: 24px;
+    }
+
+    .bolinha-opcoes {
+      display: flex;
+      gap: 4px;
+    }
+
+    .bolinha {
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      border: 2px solid #6c3483;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: #6c3483;
+      cursor: pointer;
+      transition: all .15s;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .bolinha:hover {
+      background: #e8d5f5;
+    }
+
+    .bolinha.marcada {
+      background: #1a1a2e;
+      border-color: #1a1a2e;
+      color: white;
+    }
+
+    .bolinha-legend {
+      display: flex;
+      gap: 14px;
+      font-size: 11px;
+      color: #555;
+      margin-top: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .bolinha-legend .ex-vazio {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #6c3483;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .bolinha-legend .ex-cheio {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #1a1a2e;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .bolinha-rodape {
+      border-top: 1px solid #e0d5f0;
+      padding: 14px 36px;
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      background: #faf5ff;
+    }
+
+    /* CORRETOR */
+    #corretor {
+      display: none;
+    }
+
+    .corretor-page {
+      max-width: 860px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .10);
+      overflow: hidden;
+    }
+
+    .corretor-header {
+      background: linear-gradient(135deg, #1a3a5c, #2980b9);
+      padding: 24px 36px;
+      color: white;
+    }
+
+    .corretor-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .corretor-header p {
+      font-size: 13px;
+      opacity: .85;
+    }
+
+    .corretor-body {
+      padding: 28px 36px;
+    }
+
+    .corretor-steps {
+      display: flex;
+      margin-bottom: 24px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #dde3ec;
+    }
+
+    .corretor-step {
+      flex: 1;
+      padding: 14px 10px;
+      background: #f8faff;
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      border-right: 1px solid #dde3ec;
+    }
+
+    .corretor-step:last-child {
+      border-right: none;
+    }
+
+    .corretor-step.ativo {
+      background: linear-gradient(135deg, #2980b9, #1a5276);
+      color: white;
+    }
+
+    .corretor-step .step-num {
+      font-size: 18px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .upload-area {
+      border: 3px dashed #2980b9;
+      border-radius: 12px;
+      padding: 48px 30px;
+      text-align: center;
+      background: #f0f8ff;
+      cursor: pointer;
+      transition: all .2s;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .upload-area:hover,
+    .upload-area.drag-over {
+      background: #deeeff;
+      border-color: #1a5276;
+    }
+
+    .upload-area input[type=file] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-icon {
+      font-size: 52px;
+      margin-bottom: 12px;
+    }
+
+    .upload-area h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a5276;
+      margin-bottom: 6px;
+    }
+
+    .upload-area p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    #preview-container {
+      display: none;
+      margin-bottom: 20px;
+    }
+
+    #preview-container img {
+      max-width: 100%;
+      border-radius: 10px;
+      border: 2px solid #dde3ec;
+    }
+
+    .correcao-panel {
+      background: #fafbff;
+      border: 1px solid #dde3ec;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .correcao-panel h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 14px;
+    }
+
+    .manual-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .manual-row {
+      background: white;
+      border: 1px solid #dde3ec;
+      border-radius: 8px;
+      padding: 8px;
+    }
+
+    .manual-row .m-qnum {
+      font-size: 10px;
+      font-weight: 700;
+      color: #888;
+      margin-bottom: 5px;
+    }
+
+    .manual-row select {
+      width: 100%;
+      border: 1px solid #dde3ec;
+      border-radius: 5px;
+      padding: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .btn-corrigir {
+      background: linear-gradient(135deg, #1a9641, #27ae60);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: all .2s;
+    }
+
+    .btn-corrigir:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26, 150, 65, .3);
+    }
+
+    #resultado-correcao {
+      display: none;
+      margin-top: 24px;
+    }
+
+    .resultado-card {
+      background: linear-gradient(135deg, #1a3a5c, #2980b9);
+      border-radius: 12px;
+      padding: 24px;
+      color: white;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .res-stat .val {
+      font-size: 34px;
+      font-weight: 700;
+    }
+
+    .res-stat .lbl {
+      font-size: 11px;
+      opacity: .8;
+      text-transform: uppercase;
+    }
+
+    .barra-wrap {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .barra-acerto {
+      background: rgba(255, 255, 255, .2);
+      border-radius: 20px;
+      height: 14px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .barra-acerto-fill {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #27ae60, #2ecc71);
+      transition: width 1s ease;
+    }
+
+    .res-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .res-item {
+      border-radius: 6px;
+      padding: 6px 4px;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .res-item.acerto {
+      background: #edfaf1;
+      border: 1px solid #a9dfbf;
+    }
+
+    .res-item.erro {
+      background: #fdecea;
+      border: 1px solid #f5b7b1;
+    }
+
+    .res-item.vazio {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+    }
+
+    .ri-qnum {
+      font-weight: 700;
+      font-size: 10px;
+      color: #555;
+    }
+
+    .ri-resp {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .acerto .ri-resp {
+      color: #1a9641;
+    }
+
+    .erro .ri-resp {
+      color: #c0392b;
+    }
+
+    .vazio .ri-resp {
+      color: #999;
+    }
+
+    .ri-gabarito {
+      font-size: 9px;
+      color: #888;
+    }
+
+    .nota-badge {
+      display: block;
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      color: white;
+      border-radius: 12px;
+      padding: 14px 30px;
+      font-size: 26px;
+      font-weight: 700;
+      text-align: center;
+      margin: 14px 0;
+    }
+
+    .nota-badge span {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      opacity: .85;
+    }
+
+    @media print {
+      .control-bar {
+        display: none !important;
+      }
+
+      #gabarito,
+      #corretor {
+        display: none !important;
+      }
+
+      body {
+        background: white;
+        font-size: 11px;
+      }
+
+      .page,
+      .gabarito-page,
+      .bolinha-page {
+        box-shadow: none;
+        margin: 0;
+        border-radius: 0;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .prova-body,
+      .header,
+      .bolinha-header,
+      .bolinha-body {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .questao {
+        padding: 10px;
+        margin-bottom: 12px;
+      }
+
+      pre,
+      code {
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+      }
+
+      .bolinha-header {
+        padding-top: 10px;
+        padding-bottom: 5px;
+      }
+
+      .bolinha-body {
+        padding-top: 5px;
+      }
+
+      .secao-bolinha {
+        margin-bottom: 8px;
+      }
+
+      .secao-bolinha-titulo {
+        padding: 4px 8px;
+        margin-bottom: 6px;
+        font-size: 10px;
+      }
+
+      .bolinha-grid {
+        gap: 4px;
+      }
+
+      .bolinha-row {
+        gap: 2px;
+        padding: 2px;
+      }
+
+      .bolinha-qnum {
+        min-width: 16px;
+        font-size: 10px;
+      }
+
+      .bolinha-opcoes {
+        gap: 2px;
+      }
+
+      .bolinha {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+        line-height: 14px;
+        margin: 0;
+        border-width: 1px;
+      }
+
+      .page-break {
+        page-break-before: always;
+      }
+
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .prova-body {
+        padding: 16px;
+      }
+
+      .bolinha-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .manual-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BARRA DE CONTROLE -->
+  <div class="control-bar" id="controlBar">
+    <h1>🏥 Prova – Sistema Hospitalar Sentinela</h1>
+    <div class="btns">
+      <button class="btn-ctrl btn-prova" onclick="mostrar('prova')">📋 Ver Prova</button>
+      <button class="btn-ctrl btn-gabarito" onclick="mostrar('gabarito')">🔑 Gabarito</button>
+      <button class="btn-ctrl btn-bolinha" onclick="mostrar('gabarito-bolinha')">⭕ Cartão Resposta</button>
+      <button class="btn-ctrl btn-corretor" onclick="mostrar('corretor')">🔬 Corretor</button>
+      <button class="btn-ctrl btn-pdf" onclick="gerarPDF()">📄 PDF</button>
+    </div>
+  </div>
+
+  <!-- ======================== PROVA ========================== -->
+  <div id="prova">
+    <div class="page">
+      <div class="header">
+        <div class="header-top">
+          <div class="logo-wrapper">
+            <img src="logo_efg.png">
+          </div>
+          <div class="escola-info">
+            <h2>ESCOLA DO FUTURO</h2>
+            <p>Curso Técnico em Informática | Desenvolvimento Web &amp; Sistemas</p>
+            <p>Orientador: Prof. Ubiratan</p>
+          </div>
+        </div>
+        <div class="prova-titulo">
+          <h1>🏥 AVALIAÇÃO — PROJETO FINAL SENTINELA</h1>
+          <p>Sistema Hospitalar | Node.js · Express · PostgreSQL · HTML · CSS · JavaScript</p>
+        </div>
+        <div class="ficha">
+          <div class="ficha-item"><label>Nome do Aluno(a)</label>
+            <div class="linha"></div>
+          </div>
+          <div class="ficha-item"><label>Turma / Turno</label>
+            <div class="linha"></div>
+          </div>
+          <div class="ficha-item"><label>Data de Realização</label>
+            <div class="linha"></div>
+          </div>
+          <div class="ficha-item"><label>Nota (Uso Exclusivo do Professor)</label>
+            <div class="linha"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="instrucoes">
+        <h3>📌 Instruções Gerais</h3>
+        <ul>
+          <li>A prova contém <strong>55 questões de múltipla escolha</strong> (5 alternativas cada), distribuídas em 4
+            seções.</li>
+          <li>Marque <strong>apenas UMA</strong> alternativa por questão no Cartão Resposta (preencha completamente a
+            bolinha).</li>
+          <li>Use caneta azul ou preta. Marcações a lápis e rasuras anulam a questão.</li>
+          <li>Duração: <strong>3 horas</strong>. Proibido o uso de dispositivos eletrônicos.</li>
+        </ul>
+      </div>
+
+      <div class="prova-body">
+
+        <!-- SEÇÃO 1 -->
+        <div class="secao">
+          <div class="secao-titulo">📝 Seção I — Conceitos Gerais &amp; Backend <span class="badge">25 Questões · 1,0
+              pt cada</span></div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 01</div>
+            <div class="questao-enunciado">Qual framework Node.js é utilizado no backend do Sistema Hospitalar
+              Sentinela para criar e gerenciar as rotas da API REST?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Fastify</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Koa</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Express</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Hapi</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> NestJS</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 02</div>
+            <div class="questao-enunciado">No arquivo <strong>server.js</strong>, qual módulo do Node.js é utilizado
+              para conectar o backend ao banco de dados PostgreSQL?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>mysql2</code></div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>mongoose</code></div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>sequelize</code></div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>pg</code> (node-postgres) com a classe
+                <code>Pool</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>sqlite3</code></div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 03</div>
+            <div class="questao-enunciado">No protocolo de triagem implementado no sistema, qual temperatura (em °C)
+              faz o paciente ser classificado automaticamente como risco <strong>VERMELHO</strong>?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Temperatura igual ou superior a 37°C</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Temperatura igual ou superior a 37,5°C</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Temperatura igual ou superior a 38°C</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Temperatura igual ou superior a 39°C</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Temperatura igual ou superior a 40°C</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 04</div>
+            <div class="questao-enunciado">Na versão com banco de dados em arquivo (<strong>api/index.js</strong>),
+              qual estrutura é utilizada para persistir as informações localmente no arquivo <code>db.json</code>?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> XML processado com o módulo <code>xml2js</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Arquivo binário com Buffer do Node.js</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Objeto JavaScript serializado em JSON via
+                <code>fs.writeFileSync</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Banco SQLite embutido</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> LocalStorage do navegador</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 05</div>
+            <div class="questao-enunciado">Qual método HTTP é utilizado para registrar uma nova triagem no endpoint
+              <code>/triagem</code> do sistema?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> GET</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> PUT</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> DELETE</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> PATCH</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> POST</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 06</div>
+            <div class="questao-enunciado">No banco de dados PostgreSQL do Sentinela, qual é o tipo do campo
+              <code>id</code> nas tabelas de <code>pacientes</code> e <code>triagens</code>, e como esse valor é
+              gerado no código Node.js?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> UUID gerado com <code>uuid.v4()</code></div>
+              <div class="opcao"><span class="opcao-letra">B)</span> SERIAL auto-incrementado pelo PostgreSQL</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> BIGINT gerado via <code>Date.now()</code> no
+                JavaScript</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> INTEGER gerado por sequência manual no banco
+              </div>
+              <div class="opcao"><span class="opcao-letra">E)</span> VARCHAR aleatório gerado com
+                <code>Math.random()</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 07</div>
+            <div class="questao-enunciado">Qual é a função do middleware <code>cors()</code> aplicado no servidor
+              Express do projeto Sentinela?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Comprime as respostas HTTP para reduzir o tráfego
+                de dados</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Autentica usuários com JSON Web Token</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Permite que o frontend em outro domínio/porta
+                faça requisições ao backend sem bloqueio de segurança do navegador</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Serializa automaticamente os dados em XML</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Redireciona todas as requisições para HTTPS</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 08</div>
+            <div class="questao-enunciado">Na tela da TV (<code>tv.html</code>), com qual frequência a função
+              <code>atualizar()</code> é chamada para buscar novas chamadas de pacientes em tempo real?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> A cada 30 segundos</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> A cada 10 segundos</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> A cada 5 segundos</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> A cada 2 segundos</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Apenas quando o usuário clica em um botão</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 09</div>
+            <div class="questao-enunciado">Quais sintomas classificam automaticamente o paciente como risco
+              <strong>VERMELHO</strong> (além da temperatura ≥ 39°C) na função <code>classificarRisco()</code>?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> dor_leve, resfriado, coriza</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> febre, vomito, diarreia</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> febre, falta_ar_moderada, coriza, tosse</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> infarto, avc, convulsao, hemorragia,
+                falta_ar_grave</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> qualquer sintoma combinado com temperatura acima
+                de 38°C</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 10</div>
+            <div class="questao-enunciado">No cabeçalho HTTP enviado pelo frontend ao fazer uma requisição POST de
+              triagem, qual Content-Type é informado?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>text/plain</code></div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>multipart/form-data</code></div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>application/x-www-form-urlencoded</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>application/json</code></div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>application/xml</code></div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 11</div>
+            <div class="questao-enunciado">Qual é a porta padrão em que o servidor do Sistema Hospitalar Sentinela
+              escuta requisições, conforme configurado em <code>server.js</code>?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> 8080</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> 5000</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> 3000</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> 4000</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> 443</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 12</div>
+            <div class="questao-enunciado">A tabela <code>tv_historico</code> no banco de dados mantém, no máximo,
+              quantas chamadas recentes de pacientes?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> 3 chamadas</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> 4 chamadas</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> 5 chamadas</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> 10 chamadas</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Sem limite</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 13</div>
+            <div class="questao-enunciado">Qual é o status inicial atribuído automaticamente a um paciente
+              recém-cadastrado no endpoint <code>POST /atendimento</code>?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>em_consulta</code></div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>finalizado</code></div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>aguardando_medico</code></div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>triagem</code></div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>pendente</code></div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 14</div>
+            <div class="questao-enunciado">Qual das seguintes alternativas descreve corretamente a função do
+              middleware <code>express.static()</code> no projeto Sentinela?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Autentica e valida tokens JWT nas requisições
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Serve arquivos estáticos (HTML, CSS, JS, imagens)
+                do diretório frontend para o navegador</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Cria conexão WebSocket entre frontend e backend
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Comprime os arquivos antes de enviá-los ao
+                cliente</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Redireciona todas as requisições GET para a rota
+                <code>/</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 15</div>
+            <div class="questao-enunciado">Ao chamar um paciente na TV através do Painel Médico
+              (<code>medico.html</code>), qual informação é exibida no painel principal da tela da TV?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Diagnóstico e medicação prescrita</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> CPF e data de nascimento do paciente</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Nome do paciente, tipo de local (CONSULTÓRIO ou
+                GUICHÊ) e número</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Temperatura e nível de risco da triagem</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Nome do médico responsável e CRM</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 16</div>
+            <div class="questao-enunciado">No script SQL (<code>database.sql</code>), qual é o tipo de dado utilizado
+              para armazenar a temperatura do paciente na tabela <code>triagens</code>?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> FLOAT</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> REAL</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> INTEGER</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> DECIMAL(4,1)</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> NUMERIC(5,2)</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 17</div>
+            <div class="questao-enunciado">A animação CSS implementada na tela da TV quando um novo paciente é chamado
+              chama-se <strong>flash</strong>. Qual propriedade CSS controla essa animação no arquivo
+              <code>tv.html</code>?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>transition: all 0.5s ease;</code></div>
+              <div class="opcao"><span class="opcao-letra">B)</span>
+                <code>@keyframes flash { 0%,100% { opacity:1; } 50% { opacity:0.3; } }</code> com
+                <code>animation: flash 0.5s ease 3;</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>transform: scale(1.1);</code></div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>blink: 0.5s;</code></div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>visibility: hidden</code> alternado com
+                JavaScript</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 18</div>
+            <div class="questao-enunciado">Qual é a lista completa de medicações retornada pelo endpoint
+              <code>GET /lista-medicacoes</code> no backend do Sentinela?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Aspirina, Benzetacil, Rivotril, Captopril,
+                Losartana</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Dipirona, Paracetamol, Ibuprofeno, Amoxicilina,
+                Azitromicina, Loratadina, Omeprazol, Buscopan, Dramin, Soro fisiológico</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Morfina, Codeína, Tramadol, Fentanil, Oxicodona
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Insulina, Metformina, Glibenclamida,
+                Sitagliptina, Empagliflozina</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> A lista é gerada dinamicamente a partir do banco
+                de dados</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 19</div>
+            <div class="questao-enunciado">O arquivo <code>render.yaml</code> presente no projeto é utilizado para
+              qual finalidade?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Configurar o banco de dados local SQLite</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Definir variáveis CSS de design system</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Deploy automatizado na plataforma Render.com
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Rodar testes automatizados com Jest</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Configurar o Webpack para bundling do frontend
+              </div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 20</div>
+            <div class="questao-enunciado">Na opção de cadastro via Supabase em <code>atendimento.html</code>, qual
+              verificação é feita antes de chamar o método <code>cadastrarComSupabase()</code>?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verifica se o CPF é válido com Módulo 11</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Verifica se o campo nome está preenchido</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Verifica se
+                <code>window.supabaseClientExample</code> é diferente de <code>undefined</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Verifica se o servidor local está ativo com um
+                ping</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Verifica se a foto do paciente foi anexada</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 21</div>
+            <div class="questao-enunciado">Qual é o código de status HTTP retornado quando o login falha (credenciais
+              inválidas) no endpoint <code>POST /login</code>?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> 200 OK</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> 400 Bad Request</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> 403 Forbidden</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> 401 Unauthorized</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> 404 Not Found</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 22</div>
+            <div class="questao-enunciado">No painel médico, qual alerta é exibido ao selecionar um paciente que
+              possui alergia registrada?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Um modal HTML personalizado é exibido na tela
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Uma notificação push é enviada ao celular do
+                médico</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Um <code>alert()</code> JavaScript com "⚠️
+                Paciente possui alergia: [nome da alergia]"</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> O campo diagnóstico fica com borda vermelha
+                automaticamente</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Não há nenhum aviso; a alergia só consta no
+                relatório</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 23</div>
+            <div class="questao-enunciado">Em qual tabela do banco de dados PostgreSQL são armazenados os dados de
+              diagnóstico, medicação prescrita e observações médicas de uma consulta?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>pacientes</code></div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>triagens</code></div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>tv_historico</code></div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>consultas</code></div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>usuarios</code></div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 24</div>
+            <div class="questao-enunciado">Qual opção descreve corretamente a diferença entre
+              <code>api/index.js</code> e <code>backend/server.js</code>?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> O <code>index.js</code> usa REST; o
+                <code>server.js</code> usa GraphQL
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> O <code>index.js</code> persiste dados em arquivo
+                JSON local; o <code>server.js</code> usa PostgreSQL via variável de ambiente <code>DATABASE_URL</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> O <code>index.js</code> roda em produção; o
+                <code>server.js</code> é apenas para testes
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Ambos são idênticos em funcionalidade, diferindo
+                apenas no nome do arquivo</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> O <code>server.js</code> usa MongoDB; o
+                <code>index.js</code> usa PostgreSQL
+              </div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 25</div>
+            <div class="questao-enunciado">Qual funcionalidade é acionada ao clicar no botão "Gerar Alta (PDF)" no
+              painel médico (<code>medico.html</code>)?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Um arquivo .pdf é baixado automaticamente usando
+                a biblioteca pdfkit</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> O Puppeteer gera um PDF no servidor e envia ao
+                frontend</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Uma nova janela HTML é aberta com o Termo de Alta
+                formatado e o diálogo de impressão é acionado via <code>window.print()</code></div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Um e-mail com o PDF é enviado automaticamente ao
+                paciente</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> O conteúdo é enviado para uma impressora via
+                Bluetooth</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="separador"></div>
+
+        <!-- SEÇÃO 2 -->
+        <div class="secao">
+          <div class="secao-titulo">✅ Seção II — Verdadeiro ou Falso (Múltipla Escolha) <span class="badge">15
+              Questões · 0,5 pt cada</span></div>
+          <p style="font-size:12px;color:#666;margin-bottom:18px;font-style:italic;">Marque <strong>A)
+              Verdadeiro</strong> ou <strong>B) Falso</strong> para cada afirmação.</p>
+
+          <div class="questao">
+            <div class="questao-num">Questão 26</div>
+            <div class="questao-enunciado">O campo <code>cpf</code> na tabela <code>pacientes</code> possui a
+              constraint <code>UNIQUE</code>, impedindo o cadastro de dois pacientes com o mesmo CPF.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 27</div>
+            <div class="questao-enunciado">A conexão com o banco de dados PostgreSQL é configurada com
+              <code>ssl: { rejectUnauthorized: true }</code>, aceitando apenas certificados SSL verificados.
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 28</div>
+            <div class="questao-enunciado">Na tela de triagem, a lista de pacientes na fila é atualizada
+              automaticamente a cada 10 segundos usando <code>setInterval()</code>.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 29</div>
+            <div class="questao-enunciado">A tabela <code>tv_chamada</code> pode armazenar múltiplas chamadas
+              simultâneas ativas, uma para cada consultório.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 30</div>
+            <div class="questao-enunciado">O endpoint <code>GET /medicacoes</code> retorna todas as consultas
+              registradas, incluindo paciente, diagnóstico e medicação prescrita.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 31</div>
+            <div class="questao-enunciado">A senha do usuário <code>admin</code> inserida no script SQL de
+              inicialização do banco de dados é <code>admin123</code>.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 32</div>
+            <div class="questao-enunciado">O projeto utiliza WebSockets (socket.io) para comunicação em tempo real
+              entre o painel médico e a tela da TV.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 33</div>
+            <div class="questao-enunciado">A função <code>initDB()</code> no <code>server.js</code> cria as tabelas
+              com <code>CREATE TABLE IF NOT EXISTS</code>, garantindo que a inicialização não falhe caso as tabelas já
+              existam.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 34</div>
+            <div class="questao-enunciado">O campo <code>tipo</code> na tabela <code>pacientes</code> aceita apenas os
+              valores <code>'Convenio'</code> ou <code>'Particular'</code>, pois há uma constraint CHECK no banco de
+              dados.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 35</div>
+            <div class="questao-enunciado">O backend do Sentinela utiliza o módulo <code>dotenv</code> para carregar
+              variáveis de ambiente como <code>DATABASE_URL</code> a partir de um arquivo <code>.env</code>.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 36</div>
+            <div class="questao-enunciado">O painel médico busca as triagens ao carregar a página e também a cada 10
+              segundos via <code>setInterval(carregar, 10000)</code>.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 37</div>
+            <div class="questao-enunciado">Na tela de triagem, a função <code>chamarNaTV()</code> envia o localTipo
+              como <code>"CONSULTÓRIO"</code> e o localNumero como <code>"01"</code>.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 38</div>
+            <div class="questao-enunciado">O projeto possui a dependência de desenvolvimento <code>puppeteer</code>
+              listada no <code>package.json</code>, utilizada para geração de PDFs via script.</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 39</div>
+            <div class="questao-enunciado">A cor de fundo da tela da TV (<code>tv.html</code>) é definida como
+              <code>#5c4033</code>, um tom marrom escuro, para criar contraste com os painéis azuis.
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 40</div>
+            <div class="questao-enunciado">O campo <code>id</code> na tabela <code>usuarios</code> é do tipo
+              <code>BIGINT</code>, igual ao campo <code>id</code> das tabelas <code>pacientes</code> e
+              <code>triagens</code>.
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Verdadeiro</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Falso</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="separador"></div>
+
+        <!-- SEÇÃO 3 -->
+        <div class="secao">
+          <div class="secao-titulo">💻 Seção III — Análise de Código <span class="badge">8 Questões · 1,5 pt
+              cada</span></div>
+          <p style="font-size:12px;color:#666;margin-bottom:18px;font-style:italic;">Analise o trecho de código e
+            assinale a alternativa que preenche corretamente todas as lacunas.</p>
+
+          <div class="questao">
+            <div class="questao-num">Questão 41 — Criação do servidor Express</div>
+            <div class="questao-enunciado">Analise o código e assinale o conjunto que preenche corretamente as três
+              lacunas (em ordem):</div>
+            <div class="codigo-bloco"><span class="kw">require</span>(<span class="str">'dotenv'</span>).config();
+              <span class="kw">const</span> express = <span class="kw">require</span>(<span
+                class="str">"express"</span>);
+              <span class="kw">const</span> cors = <span class="kw">require</span>(<span class="str">"cors"</span>);
+              <span class="kw">const</span> app = ___________();
+              app.<span class="fn">use</span>(express.___________());
+              app.<span class="fn">use</span>(___________ ());
+              app.<span class="fn">listen</span>(<span class="num">3000</span>);
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>express</code> · <code>urlencoded</code> ·
+                <code>cors</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>express</code> · <code>json</code> ·
+                <code>cors</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>app</code> · <code>json</code> ·
+                <code>cors</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>express</code> · <code>static</code> ·
+                <code>cors</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>server</code> · <code>json</code> ·
+                <code>helmet</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 42 — Classificação de risco por temperatura</div>
+            <div class="questao-enunciado">Qual conjunto de operadores e strings preenche corretamente as cinco
+              lacunas do código de classificação de risco?</div>
+            <div class="codigo-bloco"><span class="kw">let</span> risco = riscoRecebido;
+              <span class="kw">if</span> (temperatura ___ <span class="num">39</span>) {
+              risco = <span class="str">"___________"</span>;
+              } <span class="kw">else if</span> (temperatura ___ <span class="num">38</span>) {
+              risco = <span class="str">"___________"</span>;
+              } <span class="kw">else if</span> (!risco) {
+              risco = <span class="str">"___________"</span>;
+              }
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>&gt;</code> · "vermelho" ·
+                <code>&gt;</code> · "amarelo" · "verde"
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>&gt;=</code> · "vermelho" ·
+                <code>&gt;=</code> · "amarelo" · "verde"
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>&gt;=</code> · "alto" · <code>&gt;=</code>
+                · "medio" · "baixo"</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>===</code> · "vermelho" · <code>===</code>
+                · "amarelo" · "verde"</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>&gt;=</code> · "critico" ·
+                <code>&gt;=</code> · "alerta" · "normal"
+              </div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 43 — Função readDB() em api/index.js</div>
+            <div class="questao-enunciado">Quais dois métodos preenchem corretamente as lacunas da função
+              <code>readDB()</code>?
+            </div>
+            <div class="codigo-bloco"><span class="kw">function</span> <span class="fn">readDB</span>() {
+              <span class="kw">if</span> (!fs.<span class="fn">___________</span>(DB_FILE)) {
+              <span class="kw">return</span> { usuarios: [], pacientes: [], triagens: [], consultas: [] };
+              }
+              <span class="kw">return</span> JSON.<span class="fn">___________</span>(fs.<span
+                class="fn">readFileSync</span>(DB_FILE));
+              }
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>existsSync</code> · <code>stringify</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>existsSync</code> · <code>parse</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>readFileSync</code> · <code>parse</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>statSync</code> · <code>parse</code></div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>accessSync</code> · <code>stringify</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 44 — Função classificarRisco() em triagem.html</div>
+            <div class="questao-enunciado">Na função <code>classificarRisco(sintoma, temperatura)</code>, quais
+              valores preenchem corretamente as quatro lacunas (em ordem)?</div>
+            <div class="codigo-bloco"><span class="kw">function</span> <span class="fn">classificarRisco</span>(sintoma,
+              temperatura) {
+              <span class="kw">const</span> vermelhos = [<span class="str">"infarto"</span>,<span
+                class="str">"avc"</span>,<span class="str">"convulsao"</span>,<span
+                class="str">"hemorragia"</span>,<span class="str">"falta_ar_grave"</span>];
+              <span class="kw">const</span> amarelos = [<span class="str">"febre"</span>,<span
+                class="str">"vomito"</span>,<span class="str">"diarreia"</span>,<span
+                class="str">"falta_ar_moderada"</span>];
+              <span class="kw">if</span> (temperatura >= <span class="num">39</span>) <span class="kw">return</span>
+              <span class="str">"___________"</span>;
+              <span class="kw">if</span> (vermelhos.<span class="fn">___________</span>(sintoma)) <span
+                class="kw">return</span> <span class="str">"vermelho"</span>;
+              <span class="kw">if</span> (amarelos.<span class="fn">includes</span>(sintoma)) <span
+                class="kw">return</span> <span class="str">"___________"</span>;
+              <span class="kw">return</span> <span class="str">"___________"</span>;
+              }
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> "alto" · <code>find</code> · "medio" · "baixo"
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> "vermelho" · <code>includes</code> · "amarelo" ·
+                "verde"</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> "vermelho" · <code>indexOf</code> · "amarelo" ·
+                "verde"</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> "critico" · <code>includes</code> · "atencao" ·
+                "normal"</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> "vermelho" · <code>some</code> · "amarelo" ·
+                "verde"</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 45 — Chamar paciente na TV (medico.html)</div>
+            <div class="questao-enunciado">Na função <code>chamarNaTV(nome)</code>, quais valores preenchem
+              corretamente as quatro lacunas (em ordem)?</div>
+            <div class="codigo-bloco"><span class="kw">function</span> <span class="fn">chamarNaTV</span>(nome) {
+              <span class="kw">const</span> consultorio = document.<span class="fn">getElementById</span>(<span
+                class="str">"___________"</span>).value || <span class="str">"01"</span>;
+              <span class="fn">fetch</span>(<span class="str">"___________"</span>, {
+              method: <span class="str">"___________"</span>,
+              headers: { <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span> },
+              body: JSON.<span class="fn">stringify</span>({
+              localTipo: <span class="str">"CONSULTÓRIO"</span>,
+              localNumero: consultorio,
+              paciente: ___________
+              })
+              });
+              }
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> "numero-sala" · "/tv/chamar" · "GET" · nome</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> "consultorio-num" · "/tv/chamar" · "POST" · nome
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> "consultorio-num" · "/tv/chamada" · "POST" · nome
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> "consultorio-num" · "/tv/chamar" · "PUT" · nome
+              </div>
+              <div class="opcao"><span class="opcao-letra">E)</span> "sala-numero" · "/api/tv" · "POST" · nome</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 46 — Criação da tabela triagens no PostgreSQL</div>
+            <div class="questao-enunciado">Qual conjunto de termos SQL preenche corretamente as quatro lacunas (em
+              ordem)?</div>
+            <div class="codigo-bloco">CREATE TABLE ___________ EXISTS triagens (
+              id BIGINT ___________,
+              nome VARCHAR(255) NOT NULL,
+              sintoma ___________,
+              temperatura DECIMAL(4,1),
+              risco VARCHAR(50),
+              status VARCHAR(50) DEFAULT <span class="str">'aguardando_medico'</span>,
+              created_at TIMESTAMP DEFAULT ___________
+              );</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> IF NOT · PRIMARY KEY · TEXT · NOW()</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> IF NOT · PRIMARY KEY · TEXT · CURRENT_TIMESTAMP
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> OR REPLACE · UNIQUE · VARCHAR · CURRENT_TIMESTAMP
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> IF NOT · NOT NULL · TEXT · SYSDATE</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> IF NOT · PRIMARY KEY · VARCHAR(255) ·
+                CURRENT_DATE</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 47 — Animação flash na TV</div>
+            <div class="questao-enunciado">Quais valores preenchem corretamente as cinco lacunas do trecho que ativa a
+              animação de flash?</div>
+            <div class="codigo-bloco"><span class="kw">if</span> (chamada.___ !== ___________) {
+              ultimoId = chamada.id;
+              <span class="kw">const</span> patientBox = document.<span class="fn">querySelector</span>(<span
+                class="str">".___________ "</span>);
+              patientBox.classList.<span class="fn">___________</span>(<span class="str">"flash"</span>);
+              <span class="kw">void</span> patientBox.offsetWidth;
+              patientBox.classList.<span class="fn">___________</span>(<span class="str">"flash"</span>);
+              }
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>id</code> · ultimoId · "patient-box" ·
+                <code>remove</code> · <code>add</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>id</code> · ultimoId · "patient-box" ·
+                <code>add</code> · <code>remove</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>name</code> · ultimoId · "flash-box" ·
+                <code>remove</code> · <code>add</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>id</code> · lastId · "patient-box" ·
+                <code>toggle</code> · <code>toggle</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>id</code> · ultimoId · "tv-box" ·
+                <code>remove</code> · <code>add</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 48 — Polling de chamadas na TV</div>
+            <div class="questao-enunciado">Quais funções/métodos preenchem corretamente as três lacunas do código de
+              polling da TV?</div>
+            <div class="codigo-bloco"><span class="kw">function</span> <span class="fn">atualizar</span>() {
+              <span class="fn">___________</span>(<span class="str">"/tv/chamada"</span>)
+              .then(r => r.<span class="fn">___________</span>())
+              .then(data => {
+              <span class="cm">// atualiza a tela...</span>
+              });
+              }
+              <span class="fn">atualizar</span>();
+              <span class="fn">___________</span>(atualizar, <span class="num">2000</span>);
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> <code>axios.get</code> · <code>json</code> ·
+                <code>setTimeout</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">B)</span> <code>fetch</code> · <code>json</code> ·
+                <code>setInterval</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> <code>fetch</code> · <code>text</code> ·
+                <code>setInterval</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">D)</span> <code>XMLHttpRequest</code> · <code>json</code> ·
+                <code>setInterval</code>
+              </div>
+              <div class="opcao"><span class="opcao-letra">E)</span> <code>fetch</code> · <code>json</code> ·
+                <code>setTimeout</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="separador"></div>
+
+        <!-- SEÇÃO 4 -->
+        <div class="secao">
+          <div class="secao-titulo">📖 Seção IV — Análise Conceitual <span class="badge">7 Questões · 2,0 pt
+              cada</span></div>
+          <p style="font-size:12px;color:#666;margin-bottom:18px;font-style:italic;">Leia o enunciado e assinale a
+            alternativa <strong>mais completa e correta</strong>.</p>
+
+          <div class="questao">
+            <div class="questao-num">Questão 49 — Fluxo Completo de Atendimento</div>
+            <div class="questao-enunciado">Qual alternativa descreve corretamente o fluxo completo de atendimento de
+              um paciente no Sistema Sentinela, na ordem das etapas e dos endpoints utilizados?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Login → POST /triagem → POST /atendimento → GET
+                /consulta → gerarAlta()</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> POST /atendimento (status "triagem") → POST
+                /triagem + POST /tv/chamar → GET /triagens + POST /consulta → gerarAlta() com window.print()</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> GET /atendimento → POST /triagem → DELETE
+                /consulta → gerarAlta()</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> POST /paciente → PUT /triagem → PATCH /consulta →
+                GET /alta</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> POST /login → WebSocket /triagem → POST /consulta
+                → email com PDF</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 50 — JSON File vs PostgreSQL</div>
+            <div class="questao-enunciado">Sobre as diferenças entre <code>api/index.js</code> (JSON file) e
+              <code>backend/server.js</code> (PostgreSQL), qual afirmação é <strong>mais precisa e completa</strong>?
+            </div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Ambas as abordagens são equivalentes em produção;
+                a diferença é apenas estética</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> O JSON file é ideal para produção pois não
+                necessita de configuração externa</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> O JSON file é portátil e ideal para
+                testes/desenvolvimento, mas sem ACID, sem índices e risco de corrupção em concorrência; o PostgreSQL
+                oferece ACID, índices, queries complexas e SSL, sendo indicado para produção</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> O PostgreSQL não suporta SSL e por isso o projeto
+                usa <code>rejectUnauthorized: true</code></div>
+              <div class="opcao"><span class="opcao-letra">E)</span> O JSON file usa <code>fs.appendFile</code> para
+                evitar problemas de concorrência</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 51 — Polling HTTP vs WebSockets</div>
+            <div class="questao-enunciado">O Sistema Sentinela usa polling HTTP via <code>setInterval</code> para
+              atualizar a TV. Qual alternativa descreve corretamente as limitações do polling e propõe a solução
+              tecnológica mais adequada?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Polling HTTP não tem limitações; é a melhor
+                solução para qualquer cenário em tempo real</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> O polling gera tráfego desnecessário e latência
+                mínima igual ao intervalo; WebSockets (socket.io) ou Server-Sent Events (SSE) seriam mais eficientes
+                pois permitem notificação imediata do servidor para o cliente</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> O problema do polling é apenas o consumo de
+                bateria; a solução é usar Long Polling</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> WebSockets e polling são idênticos em desempenho;
+                a escolha é apenas preferência do desenvolvedor</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> A solução ideal é usar AJAX com jQuery para
+                substituir o setInterval</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 52 — Implementação de JWT</div>
+            <div class="questao-enunciado">Como deveria ser implementado o sistema de autenticação JWT no projeto
+              Sentinela? Assinale a alternativa que descreve o fluxo <strong>correto e completo</strong>:</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> O token JWT é armazenado no banco de dados e
+                verificado em cada requisição fazendo um SELECT</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> POST /login →
+                <code>jwt.sign({id, tipo}, SECRET, {expiresIn:'8h'})</code> → token retornado ao frontend; middleware
+                extrai o token do header Authorization (Bearer), verifica com <code>jwt.verify()</code> e injeta
+                <code>req.user</code>; rotas protegidas com authMiddleware
+              </div>
+              <div class="opcao"><span class="opcao-letra">C)</span> O JWT é enviado via cookie de sessão sem
+                expiração, pois sessões são mais seguras</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> JWT é gerado no frontend usando a biblioteca
+                CryptoJS e enviado ao servidor</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> O token JWT não precisa de middleware; basta
+                verificar o campo <code>token</code> no body de cada requisição</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 53 — Vulnerabilidades de Segurança</div>
+            <div class="questao-enunciado">Analisando o código do Sistema Sentinela, qual alternativa identifica
+              corretamente as principais vulnerabilidades e suas respectivas soluções?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> O sistema não possui vulnerabilidades pois usa
+                PostgreSQL e CORS</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> A única vulnerabilidade é a ausência de HTTPS;
+                basta redirecionar para HTTPS</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Vulnerabilidades: (1) senhas em texto puro →
+                bcrypt; (2) rotas sem autenticação → JWT + middleware; (3) CORS aberto → restringir origem. A injeção
+                SQL já está prevenida pelas queries parametrizadas ($1, $2)</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> A vulnerabilidade principal é o uso de
+                <code>fs.writeFileSync</code> que permite SQL injection
+              </div>
+              <div class="opcao"><span class="opcao-letra">E)</span> O sistema é seguro pois usa Express, que tem
+                proteção nativa contra todas as vulnerabilidades</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 54 — Acessibilidade e UX da Tela de TV</div>
+            <div class="questao-enunciado">Para melhorar a acessibilidade e a experiência do usuário da tela de TV
+              (<code>tv.html</code>), qual conjunto de melhorias é mais adequado e completo?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Aumentar o tamanho da fonte para 200px e usar
+                apenas cores primárias (vermelho, azul, verde)</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Adicionar <code>aria-live="polite"</code> para
+                leitores de tela; Web Speech API para anunciar nomes em voz; contraste mínimo WCAG AA (4.5:1);
+                unidades relativas (vw/vh/rem) para diferentes resoluções (1080p/4K)</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Usar JavaScript para recarregar a página a cada 5
+                segundos para garantir atualização</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> Substituir o HTML por um aplicativo nativo para
+                melhor compatibilidade com TVs</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> Aumentar o intervalo de polling para 30 segundos
+                para reduzir o consumo de banda</div>
+            </div>
+          </div>
+
+          <div class="questao">
+            <div class="questao-num">Questão 55 — Render.com vs Vercel</div>
+            <div class="questao-enunciado">Qual alternativa explica corretamente as diferenças entre Render.com e
+              Vercel para o deploy do projeto Sentinela?</div>
+            <div class="opcoes">
+              <div class="opcao"><span class="opcao-letra">A)</span> Render.com e Vercel são idênticos; ambos suportam
+                PostgreSQL com pool TCP persistente</div>
+              <div class="opcao"><span class="opcao-letra">B)</span> Vercel é ideal para o <code>server.js</code> com
+                PostgreSQL por ter processos persistentes</div>
+              <div class="opcao"><span class="opcao-letra">C)</span> Render.com suporta processo Node.js persistente
+                (ideal para <code>server.js</code> + PostgreSQL via <code>DATABASE_URL</code>); Vercel é serverless
+                (sem processo persistente, limite ~10s), compatível com <code>api/index.js</code> ou Supabase
+                serverless</div>
+              <div class="opcao"><span class="opcao-letra">D)</span> O Vercel suporta processos persistentes e é mais
+                adequado para Express com pool PostgreSQL</div>
+              <div class="opcao"><span class="opcao-letra">E)</span> O <code>render.yaml</code> é utilizado pelo
+                Vercel e o <code>vercel.json</code> pelo Render.com</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /prova-body -->
+
+      <div class="rodape">
+        <strong>Escola do Futuro</strong> — Curso Técnico em Informática &nbsp;|&nbsp; Projeto Final Sentinela —
+        Sistema Hospitalar &nbsp;|&nbsp; Prof. Ubiratan<br>
+        <span style="font-size:10px;color:#aaa;">Esta prova contém 55 questões de múltipla escolha · Duração: 3 horas
+          · Boa prova! 🏥</span>
+      </div>
+    </div>
+  </div><!-- /prova -->
+
+
+  <!-- ====================== GABARITO ========================= -->
+  <div id="gabarito">
+    <div class="page-break"></div>
+    <div class="gabarito-page">
+      <div class="gabarito-header">
+        <h2>🔑 GABARITO OFICIAL</h2>
+        <p>Prova — Sistema Hospitalar Sentinela | Escola do Futuro | Prof. Ubiratan</p>
+        <p style="font-size:11px;opacity:.7;margin-top:6px;">⚠️ Documento de uso exclusivo do professor — não
+          distribuir antes da correção</p>
+      </div>
+      <div class="gabarito-body">
+        <div class="pontuacao-bar">
+          <div class="pont-item">
+            <div class="val">55</div>
+            <div class="desc">Questões</div>
+          </div>
+          <div class="pont-item">
+            <div class="val">25 × 1,0</div>
+            <div class="desc">Seção I</div>
+          </div>
+          <div class="pont-item">
+            <div class="val">15 × 0,5</div>
+            <div class="desc">Seção II</div>
+          </div>
+          <div class="pont-item">
+            <div class="val">8 × 1,5</div>
+            <div class="desc">Seção III</div>
+          </div>
+          <div class="pont-item">
+            <div class="val">7 × 2,0</div>
+            <div class="desc">Seção IV</div>
+          </div>
+          <div class="pont-item">
+            <div class="val" style="color:#c0392b;">58,5</div>
+            <div class="desc">Total Pontos</div>
+          </div>
+        </div>
+
+        <div class="gab-secao">
+          <div class="gab-secao-titulo">📝 Seção I — Conceitos Gerais &amp; Backend</div>
+          <div class="gab-grid">
+            <div class="gab-item">
+              <div class="q-num">Q01</div>
+              <div class="resposta">C) Express</div>
+              <div class="justificativa"><code>require("express")</code> em ambos os backends.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q02</div>
+              <div class="resposta">D) pg — Pool</div>
+              <div class="justificativa"><code>const { Pool } = require("pg")</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q03</div>
+              <div class="resposta">D) ≥ 39°C</div>
+              <div class="justificativa"><code>if (temperatura >= 39) risco = "vermelho"</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q04</div>
+              <div class="resposta">C) JSON via fs</div>
+              <div class="justificativa"><code>readDB()</code> e <code>writeDB()</code> em api/index.js.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q05</div>
+              <div class="resposta">E) POST</div>
+              <div class="justificativa"><code>app.post("/triagem", ...)</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q06</div>
+              <div class="resposta">C) BIGINT/Date.now()</div>
+              <div class="justificativa"><code>id BIGINT PK</code> + <code>Date.now()</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q07</div>
+              <div class="resposta">C) Permite CORS</div>
+              <div class="justificativa">Libera acesso cross-origin.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q08</div>
+              <div class="resposta">D) 2 segundos</div>
+              <div class="justificativa"><code>setInterval(atualizar, 2000)</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q09</div>
+              <div class="resposta">D) infarto, avc...</div>
+              <div class="justificativa">Array <code>vermelhos[]</code> em <code>classificarRisco()</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q10</div>
+              <div class="resposta">D) application/json</div>
+              <div class="justificativa"><code>"Content-Type": "application/json"</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q11</div>
+              <div class="resposta">C) 3000</div>
+              <div class="justificativa"><code>process.env.PORT || 3000</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q12</div>
+              <div class="resposta">C) 5 chamadas</div>
+              <div class="justificativa"><code>LIMIT 5</code> na query de tv_historico.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q13</div>
+              <div class="resposta">D) triagem</div>
+              <div class="justificativa"><code>status: "triagem"</code> em POST /atendimento.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q14</div>
+              <div class="resposta">B) Arquivos estáticos</div>
+              <div class="justificativa">Serve HTML/CSS/JS do frontend.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q15</div>
+              <div class="resposta">C) Nome, local, nº</div>
+              <div class="justificativa"><code>localTipo</code>, <code>localNumero</code>, <code>paciente</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q16</div>
+              <div class="resposta">D) DECIMAL(4,1)</div>
+              <div class="justificativa"><code>temperatura DECIMAL(4,1)</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q17</div>
+              <div class="resposta">B) @keyframes flash</div>
+              <div class="justificativa"><code>animation: flash 0.5s ease 3;</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q18</div>
+              <div class="resposta">B) 10 medicações</div>
+              <div class="justificativa">Lista hardcoded nos dois backends.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q19</div>
+              <div class="resposta">C) Deploy Render.com</div>
+              <div class="justificativa">render.yaml configura o deploy.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q20</div>
+              <div class="resposta">C) supabaseClientExample</div>
+              <div class="justificativa"><code>typeof window.supabaseClientExample === 'undefined'</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q21</div>
+              <div class="resposta">D) 401 Unauthorized</div>
+              <div class="justificativa"><code>res.status(401).json(...)</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q22</div>
+              <div class="resposta">C) alert() JavaScript</div>
+              <div class="justificativa"><code>alert("⚠️ Paciente possui alergia...")</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q23</div>
+              <div class="resposta">D) consultas</div>
+              <div class="justificativa">Tabela <code>consultas</code> armazena diagnóstico/medicação.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q24</div>
+              <div class="resposta">B) JSON local vs PG</div>
+              <div class="justificativa">index.js = db.json; server.js = PostgreSQL.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q25</div>
+              <div class="resposta">C) window.open + print()</div>
+              <div class="justificativa"><code>window.open()</code> + <code>janelaAlta.print()</code></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gab-secao">
+          <div class="gab-secao-titulo">✅ Seção II — Verdadeiro ou Falso</div>
+          <div class="gab-vf-grid">
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q26</strong> — CPF tem constraint UNIQUE.</div>
+            </div>
+            <div class="gab-vf-item f-item">
+              <div class="gab-vf-badge">B/F</div>
+              <div><strong>Q27</strong> — É <code>rejectUnauthorized: false</code>.</div>
+            </div>
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q28</strong> — <code>setInterval(carregarPacientes, 10000)</code>.</div>
+            </div>
+            <div class="gab-vf-item f-item">
+              <div class="gab-vf-badge">B/F</div>
+              <div><strong>Q29</strong> — tv_chamada tem apenas 1 registro (DELETE antes do INSERT).</div>
+            </div>
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q30</strong> — GET /medicacoes retorna a tabela consultas completa.</div>
+            </div>
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q31</strong> — Senha 'admin123' no INSERT do database.sql.</div>
+            </div>
+            <div class="gab-vf-item f-item">
+              <div class="gab-vf-badge">B/F</div>
+              <div><strong>Q32</strong> — Usa polling HTTP, não WebSockets.</div>
+            </div>
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q33</strong> — CREATE TABLE IF NOT EXISTS em todas as tabelas.</div>
+            </div>
+            <div class="gab-vf-item f-item">
+              <div class="gab-vf-badge">B/F</div>
+              <div><strong>Q34</strong> — Não há CHECK constraint; campo é VARCHAR(50) livre.</div>
+            </div>
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q35</strong> — <code>require('dotenv').config()</code> carrega DATABASE_URL.</div>
+            </div>
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q36</strong> — <code>setInterval(carregar, 10000)</code> no fim de medico.html.</div>
+            </div>
+            <div class="gab-vf-item f-item">
+              <div class="gab-vf-badge">B/F</div>
+              <div><strong>Q37</strong> — Na triagem, localTipo é "GUICHÊ", não "CONSULTÓRIO".</div>
+            </div>
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q38</strong> — <code>"puppeteer": "^25.8.0"</code> em devDependencies.</div>
+            </div>
+            <div class="gab-vf-item v-item">
+              <div class="gab-vf-badge">A/V</div>
+              <div><strong>Q39</strong> — <code>background-color: #5c4033</code> em body de tv.html.</div>
+            </div>
+            <div class="gab-vf-item f-item">
+              <div class="gab-vf-badge">B/F</div>
+              <div><strong>Q40</strong> — Tabela usuarios usa SERIAL (INTEGER), não BIGINT.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gab-secao">
+          <div class="gab-secao-titulo">💻 Seção III — Análise de Código</div>
+          <div class="gab-grid">
+            <div class="gab-item">
+              <div class="q-num">Q41</div>
+              <div class="resposta">B) express · json · cors</div>
+              <div class="justificativa"><code>express()</code>, <code>express.json()</code>, <code>cors()</code>
+              </div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q42</div>
+              <div class="resposta">B) &gt;= · vermelho · &gt;= · amarelo · verde</div>
+              <div class="justificativa">Operador <code>&gt;=</code> e strings de risco do sistema.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q43</div>
+              <div class="resposta">B) existsSync · parse</div>
+              <div class="justificativa"><code>fs.existsSync</code> + <code>JSON.parse</code></div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q44</div>
+              <div class="resposta">B) "vermelho" · includes · "amarelo" · "verde"</div>
+              <div class="justificativa">Array.includes() e retornos corretos do sistema.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q45</div>
+              <div class="resposta">B) "consultorio-num" · "/tv/chamar" · "POST" · nome</div>
+              <div class="justificativa">ID, endpoint, método e variável corretos.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q46</div>
+              <div class="resposta">B) IF NOT · PRIMARY KEY · TEXT · CURRENT_TIMESTAMP</div>
+              <div class="justificativa">Sintaxe PostgreSQL correta.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q47</div>
+              <div class="resposta">A) id · ultimoId · "patient-box" · remove · add</div>
+              <div class="justificativa">Remove e re-adiciona a classe para re-disparar a animação.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q48</div>
+              <div class="resposta">B) fetch · json · setInterval</div>
+              <div class="justificativa"><code>fetch()</code> nativo + <code>.json()</code> +
+                <code>setInterval()</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gab-secao">
+          <div class="gab-secao-titulo">📖 Seção IV — Análise Conceitual</div>
+          <div class="gab-grid">
+            <div class="gab-item">
+              <div class="q-num">Q49</div>
+              <div class="resposta">B) Fluxo completo correto</div>
+              <div class="justificativa">Atendimento → Triagem + TV → Médico + Consulta → Alta PDF.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q50</div>
+              <div class="resposta">C) JSON portátil vs PG ACID</div>
+              <div class="justificativa">JSON para dev/testes; PostgreSQL para produção.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q51</div>
+              <div class="resposta">B) WebSockets/SSE mais eficientes</div>
+              <div class="justificativa">Polling gera tráfego; WS/SSE notificam instantaneamente.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q52</div>
+              <div class="resposta">B) jwt.sign + middleware + Bearer</div>
+              <div class="justificativa">Fluxo correto: login → token → middleware → rotas.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q53</div>
+              <div class="resposta">C) bcrypt + JWT + CORS restrito</div>
+              <div class="justificativa">3 vulnerabilidades com soluções técnicas corretas.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q54</div>
+              <div class="resposta">B) aria-live + Speech + WCAG</div>
+              <div class="justificativa">Conjunto completo de acessibilidade e responsividade.</div>
+            </div>
+            <div class="gab-item">
+              <div class="q-num">Q55</div>
+              <div class="resposta">C) Render persistente vs Vercel serverless</div>
+              <div class="justificativa">Render = Node persistente; Vercel = serverless.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rodape">
+        <strong>Gabarito Oficial</strong> — Sistema Hospitalar Sentinela | Escola do Futuro | Prof. Ubiratan<br>
+        <span style="font-size:10px;color:#aaa;">Seção I: 25,0 pts · Seção II: 7,5 pts · Seção III: 12,0 pts · Seção
+          IV: 14,0 pts · Total: 58,5 pts</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ====================== CARTÃO RESPOSTA BOLINHA ========================= -->
+  <div id="gabarito-bolinha">
+    <div class="page-break"></div>
+    <div class="bolinha-page">
+      <div class="bolinha-header">
+        <h2>⭕ CARTÃO RESPOSTA — SISTEMA HOSPITALAR SENTINELA</h2>
+        <p>Escola do Futuro | Prof. Ubiratan | Preencha completamente a bolinha da alternativa escolhida</p>
+        <div class="bolinha-ficha">
+          <div class="bolinha-ficha-item"><label>Nome do Aluno(a)</label>
+            <div class="linha"></div>
+          </div>
+          <div class="bolinha-ficha-item"><label>Turma / Turno</label>
+            <div class="linha"></div>
+          </div>
+          <div class="bolinha-ficha-item"><label>Data / Nota</label>
+            <div class="linha"></div>
+          </div>
+        </div>
+      </div>
+      <div class="bolinha-body">
+        <div class="bolinha-instrucao">
+          <strong>⚠️ Instruções:</strong> Use caneta <strong>azul ou preta</strong>. Preencha completamente o interior
+          da bolinha (●). Não use lápis. Rasuras anulam a questão. Marque apenas <strong>UMA</strong> alternativa por
+          questão.
+          <div class="bolinha-legend">
+            <span>Vazio (não marcar assim):</span><span class="ex-vazio"></span>
+            <span style="margin-left:8px;">Correto (marcar assim):</span><span class="ex-cheio"></span>
+          </div>
+        </div>
+
+        <div class="bolinha-secao-titulo">📝 SEÇÃO I — Questões 01 a 25 (1,0 pt cada)</div>
+        <div class="bolinha-grid" id="bolinha-secao1"></div>
+
+        <div class="bolinha-secao-titulo">✅ SEÇÃO II — Questões 26 a 40 (0,5 pt cada) — A = Verdadeiro · B = Falso
+        </div>
+        <div class="bolinha-grid" id="bolinha-secao2"></div>
+
+        <div class="bolinha-secao-titulo">💻 SEÇÃO III — Questões 41 a 48 (1,5 pt cada)</div>
+        <div class="bolinha-grid" id="bolinha-secao3"></div>
+
+        <div class="bolinha-secao-titulo">📖 SEÇÃO IV — Questões 49 a 55 (2,0 pt cada)</div>
+        <div class="bolinha-grid" id="bolinha-secao4"></div>
+      </div>
+      <div class="bolinha-rodape">
+        <strong>Escola do Futuro</strong> — Cartão Resposta Oficial &nbsp;|&nbsp; Sistema Hospitalar Sentinela
+        &nbsp;|&nbsp; Prof. Ubiratan<br>
+        <span style="font-size:10px;">55 questões · Múltipla Escolha · Duração: 3h · Total: 58,5 pts</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ====================== CORRETOR DE PROVA ========================= -->
+  <div id="corretor">
+    <div class="corretor-page">
+      <div class="corretor-header">
+        <h2>🔬 CORRETOR AUTOMÁTICO DE PROVAS</h2>
+        <p>Sistema Hospitalar Sentinela | Escola do Futuro | Prof. Ubiratan</p>
+        <p style="font-size:12px;opacity:.75;margin-top:4px;">Envie a foto/scan do Cartão Resposta e marque as
+          alternativas detectadas para correção instantânea</p>
+      </div>
+      <div class="corretor-body">
+
+        <div class="corretor-steps">
+          <div class="corretor-step ativo" id="step1"><span class="step-num">1</span>Enviar Scan</div>
+          <div class="corretor-step" id="step2"><span class="step-num">2</span>Marcar Respostas</div>
+          <div class="corretor-step" id="step3"><span class="step-num">3</span>Ver Resultado</div>
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="fileInput" accept="image/*" onchange="carregarImagem(this)">
+          <div class="upload-icon">📸</div>
+          <h3>Envie o Cartão Resposta Escaneado</h3>
+          <p>Arraste e solte aqui ou clique para selecionar a imagem</p>
+          <p style="font-size:11px;color:#999;margin-top:6px;">Formatos aceitos: JPG, PNG, WebP, PDF escaneado como
+            imagem</p>
+        </div>
+
+        <div id="preview-container">
+          <p style="font-size:12px;color:#555;margin-bottom:8px;font-weight:600;">📋 Imagem carregada — confira e
+            marque as respostas abaixo:</p>
+          <img id="preview-img" src="" alt="Cartão Resposta Escaneado">
+        </div>
+
+        <div class="correcao-panel">
+          <h3>✏️ Marque as Respostas do Aluno</h3>
+          <p style="font-size:12px;color:#666;margin-bottom:16px;">Selecione a alternativa marcada pelo aluno em cada
+            questão, usando o scan como referência. As questões 26–40 têm apenas A ou B.</p>
+          <div class="manual-grid" id="manual-grid"></div>
+          <button class="btn-corrigir" id="btnCorrigir" onclick="corrigirProva()">🔍 CORRIGIR PROVA AGORA</button>
+        </div>
+
+        <div id="resultado-correcao">
+          <div class="resultado-card">
+            <div class="res-stat">
+              <div class="val" id="res-acertos">—</div>
+              <div class="lbl">Acertos</div>
+            </div>
+            <div class="res-stat">
+              <div class="val" id="res-erros">—</div>
+              <div class="lbl">Erros</div>
+            </div>
+            <div class="res-stat">
+              <div class="val" id="res-brancos">—</div>
+              <div class="lbl">Em Branco</div>
+            </div>
+            <div class="barra-wrap">
+              <div style="font-size:12px;opacity:.8;margin-bottom:4px;">% de Acertos nas Respondidas</div>
+              <div class="barra-acerto">
+                <div class="barra-acerto-fill" id="barra-fill" style="width:0%"></div>
+              </div>
+              <div style="font-size:13px;font-weight:700;margin-top:4px;" id="res-pct">0%</div>
+            </div>
+          </div>
+          <div class="nota-badge" id="nota-badge">
+            <span>Nota Final</span>—,— / 58,5
+          </div>
+          <h3 style="font-size:14px;font-weight:700;color:#1a3a5c;margin:16px 0 8px;">📊 Detalhamento por Questão</h3>
+          <div class="res-grid" id="res-grid"></div>
+          <div style="margin-top:16px;text-align:center;">
+            <button class="btn-corrigir" style="background:linear-gradient(135deg,#8e44ad,#6c3483);max-width:300px;"
+              onclick="reiniciarCorretor()">🔄 Corrigir Nova Prova</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // ── GABARITO OFICIAL ──
+    const GABARITO = {
+      1: 'C', 2: 'D', 3: 'D', 4: 'C', 5: 'E', 6: 'C', 7: 'C', 8: 'D', 9: 'D', 10: 'D',
+      11: 'C', 12: 'C', 13: 'D', 14: 'B', 15: 'C', 16: 'D', 17: 'B', 18: 'B', 19: 'C', 20: 'C',
+      21: 'D', 22: 'C', 23: 'D', 24: 'B', 25: 'C',
+      26: 'A', 27: 'B', 28: 'A', 29: 'B', 30: 'A', 31: 'A', 32: 'B', 33: 'A', 34: 'B', 35: 'A',
+      36: 'A', 37: 'B', 38: 'A', 39: 'A', 40: 'B',
+      41: 'B', 42: 'B', 43: 'B', 44: 'B', 45: 'B', 46: 'B', 47: 'A', 48: 'B',
+      49: 'B', 50: 'C', 51: 'B', 52: 'B', 53: 'C', 54: 'B', 55: 'C'
+    };
+
+    function pontoPorQuestao(q) {
+      if (q <= 25) return 1.0;
+      if (q <= 40) return 0.5;
+      if (q <= 48) return 1.5;
+      return 2.0;
+    }
+
+    // ── MOSTRAR SEÇÃO ──
+    function mostrar(id) {
+      ['prova', 'gabarito', 'gabarito-bolinha', 'corretor'].forEach(s => {
+        const el = document.getElementById(s);
+        if (el) el.style.display = (s === id) ? 'block' : 'none';
+      });
+      document.getElementById('controlBar').style.display = 'flex';
+      if (id === 'gabarito-bolinha') renderBolinha();
+      if (id === 'corretor') renderManualGrid();
+    }
+
+    // ── PDF ──
+    function gerarPDF() {
+      ['prova', 'gabarito-bolinha'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'block';
+      });
+      document.getElementById('gabarito').style.display = 'none';
+      document.getElementById('corretor').style.display = 'none';
+      document.getElementById('controlBar').style.display = 'none';
+      renderBolinha();
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          mostrar('prova');
+          document.getElementById('controlBar').style.display = 'flex';
+        }, 1500);
+      }, 400);
+    }
+
+    // ── CARTÃO BOLINHA ──
+    let bolinhaIniciada = false;
+    function renderBolinha() {
+      if (bolinhaIniciada) return;
+      bolinhaIniciada = true;
+      const secoes = [
+        { id: 'bolinha-secao1', inicio: 1, fim: 25, letras: ['A', 'B', 'C', 'D', 'E'] },
+        { id: 'bolinha-secao2', inicio: 26, fim: 40, letras: ['A', 'B'] },
+        { id: 'bolinha-secao3', inicio: 41, fim: 48, letras: ['A', 'B', 'C', 'D', 'E'] },
+        { id: 'bolinha-secao4', inicio: 49, fim: 55, letras: ['A', 'B', 'C', 'D', 'E'] }
+      ];
+      secoes.forEach(s => {
+        const cont = document.getElementById(s.id);
+        if (!cont) return;
+        cont.innerHTML = '';
+        for (let q = s.inicio; q <= s.fim; q++) {
+          const row = document.createElement('div');
+          row.className = 'bolinha-row';
+          const num = String(q).padStart(2, '0');
+          row.innerHTML = `<span class="bolinha-qnum">${num}</span>
+          <div class="bolinha-opcoes">${s.letras.map(l =>
+            `<div class="bolinha" id="b-${q}-${l}" onclick="marcarBolinha(${q},'${l}','${s.letras.join('')}')">${l}</div>`
+          ).join('')}</div>`;
+          cont.appendChild(row);
+        }
+      });
+    }
+
+    function marcarBolinha(q, letra, letrasStr) {
+      const letras = letrasStr.split('');
+      letras.forEach(l => {
+        const el = document.getElementById(`b-${q}-${l}`);
+        if (el) el.classList.toggle('marcada', l === letra);
+      });
+    }
+
+    // ── CORRETOR — GRID ──
+    let gridIniciado = false;
+    function renderManualGrid() {
+      if (gridIniciado) return;
+      gridIniciado = true;
+      const grid = document.getElementById('manual-grid');
+      if (!grid) return;
+      for (let q = 1; q <= 55; q++) {
+        const isVF = (q >= 26 && q <= 40);
+        const letras = isVF ? ['A', 'B'] : ['A', 'B', 'C', 'D', 'E'];
+        const row = document.createElement('div');
+        row.className = 'manual-row';
+        row.innerHTML = `<div class="m-qnum">Q${String(q).padStart(2, '0')}</div>
+        <select id="sel-${q}">
+          <option value="">—</option>
+          ${letras.map(l => `<option value="${l}">${l}</option>`).join('')}
+        </select>`;
+        grid.appendChild(row);
+      }
+    }
+
+    // ── CARREGAR IMAGEM ──
+    function carregarImagem(input) {
+      if (!input.files || !input.files[0]) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('preview-img').src = e.target.result;
+        document.getElementById('preview-container').style.display = 'block';
+        setStep(2);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+
+    function setStep(n) {
+      [1, 2, 3].forEach(i => {
+        const el = document.getElementById('step' + i);
+        if (el) el.classList.toggle('ativo', i === n);
+      });
+    }
+
+    // ── CORRIGIR ──
+    function corrigirProva() {
+      let acertos = 0, erros = 0, brancos = 0, totalPontos = 0;
+      const resGrid = document.getElementById('res-grid');
+      resGrid.innerHTML = '';
+
+      for (let q = 1; q <= 55; q++) {
+        const sel = document.getElementById(`sel-${q}`);
+        const respAluno = sel ? sel.value : '';
+        const respGab = GABARITO[q];
+        const acertou = respAluno === respGab;
+        const pontos = pontoPorQuestao(q);
+
+        if (!respAluno) {
+          brancos++;
+        } else if (acertou) {
+          acertos++;
+          totalPontos += pontos;
+        } else {
+          erros++;
+        }
+
+        const item = document.createElement('div');
+        item.className = 'res-item ' + (!respAluno ? 'vazio' : acertou ? 'acerto' : 'erro');
+        item.innerHTML = `
+        <div class="ri-qnum">Q${String(q).padStart(2, '0')}</div>
+        <div class="ri-resp">${respAluno || '—'}</div>
+        <div class="ri-gabarito">✓ ${respGab}</div>`;
+        resGrid.appendChild(item);
+      }
+
+      const respondidas = acertos + erros;
+      const pct = respondidas > 0 ? Math.round((acertos / respondidas) * 100) : 0;
+
+      document.getElementById('res-acertos').textContent = acertos;
+      document.getElementById('res-erros').textContent = erros;
+      document.getElementById('res-brancos').textContent = brancos;
+      document.getElementById('res-pct').textContent = pct + '%';
+      document.getElementById('barra-fill').style.width = pct + '%';
+      document.getElementById('nota-badge').innerHTML =
+        `<span>Nota Final</span>${totalPontos.toFixed(1).replace('.', ',')} / 58,5`;
+
+      document.getElementById('resultado-correcao').style.display = 'block';
+      document.getElementById('resultado-correcao').scrollIntoView({ behavior: 'smooth' });
+      setStep(3);
+    }
+
+    // ── REINICIAR CORRETOR ──
+    function reiniciarCorretor() {
+      for (let q = 1; q <= 55; q++) {
+        const sel = document.getElementById(`sel-${q}`);
+        if (sel) sel.value = '';
+      }
+      document.getElementById('resultado-correcao').style.display = 'none';
+      document.getElementById('preview-container').style.display = 'none';
+      document.getElementById('fileInput').value = '';
+      setStep(1);
+      window.scrollTo({ top: document.getElementById('corretor').offsetTop, behavior: 'smooth' });
+    }
+
+    // ── DRAG AND DROP ──
+    const uploadArea = document.getElementById('uploadArea');
+    if (uploadArea) {
+      uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+      uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+      uploadArea.addEventListener('drop', e => {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          try {
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            document.getElementById('fileInput').files = dt.files;
+          } catch (ex) { }
+          const reader = new FileReader();
+          reader.onload = ev => {
+            document.getElementById('preview-img').src = ev.target.result;
+            document.getElementById('preview-container').style.display = 'block';
+            setStep(2);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    // ── INIT ──
+    mostrar('prova');
+  </script>
+</body>
+
+</html>
